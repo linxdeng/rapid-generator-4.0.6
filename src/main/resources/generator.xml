@@ -7,11 +7,15 @@
 		2.可以引用环境变量: ${env.JAVA_HOME} or System.properties: ${user.home},property之间也可以相互引用
 	</comment>
 	
-	<entry key="basepackage">cn.yunlai.base</entry>
+	<entry key="basepackage">cn.yunlai.base.point</entry>
 	
 	<!-- jsp namespace: web/${namespace}/${className}/list.jsp -->
-	<entry key="namespace">point</entry>
+	<entry key="namespace"></entry>
 	
+	<!-- 代码作者  -->
+	<entry key="author">linxTeng</entry>
+	
+	<!-- 文档生成目录 -->
 	<entry key="outRoot">D:\\generator-output</entry>
 
 	<!-- 需要移除的表名前缀,使用逗号进行分隔多个前缀,示例值: t_,v_ -->
@@ -26,13 +30,19 @@
 	-->
 	
 	<!-- 数据库类型映射  -->
-	<entry key="java_typemapping.java.sql.Timestamp">java.util.Date</entry>
-	<entry key="java_typemapping.java.sql.Date">java.util.Date</entry>
-	<entry key="java_typemapping.java.sql.Time">java.util.Date</entry>	
-	<entry key="java_typemapping.java.lang.Byte">java.lang.Integer</entry>
-	<entry key="java_typemapping.java.lang.Short">java.lang.Integer</entry>
-	<entry key="java_typemapping.java.math.BigDecimal">java.lang.Long</entry>
-
+	<entry key="java_typemapping.java.sql.Timestamp">Date</entry>
+	<entry key="java_typemapping.java.sql.Date">Date</entry>
+	<entry key="java_typemapping.java.sql.Time">Date</entry>	
+	<entry key="java_typemapping.java.lang.Byte">Integer</entry>
+	<entry key="java_typemapping.java.lang.Short">Integer</entry>
+	<entry key="java_typemapping.java.math.BigDecimal">Long</entry>
+	<entry key="java_typemapping.java.lang.Integer">Integer</entry>
+    <entry key="java_typemapping.java.lang.Boolean">Boolean</entry>
+    <entry key="java_typemapping.java.lang.Long">Long</entry>
+    <entry key="java_typemapping.java.lang.String">String</entry>
+    <entry key="java_typemapping.java.lang.Double">Double</entry>
+    <entry key="java_typemapping.java.lang.Float">Float</entry>
+	
 	<!-- H2 
 	<entry key="jdbc.url">jdbc:h2:tcp://localhost/test</entry>
 	<entry key="jdbc.driver">org.h2.Driver</entry>

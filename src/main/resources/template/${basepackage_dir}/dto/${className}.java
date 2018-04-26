@@ -2,7 +2,7 @@
 <#include "/java_copyright.include">
 <#assign className = table.className>   
 <#assign classNameLower = className?uncap_first> 
-package ${basepackage}.model;
+package ${basepackage}.dto;
 
 import javax.validation.constraints.*;
 import org.hibernate.validator.constraints.*;
@@ -13,8 +13,8 @@ import org.apache.commons.lang.builder.ToStringStyle;
 
 <#include "/java_imports.include">
 
-public class ${className} extends BaseEntity implements java.io.Serializable{
-	private static final long serialVersionUID = 5454155825314635342L;
+public class ${className} implements java.io.Serializable{
+	private static final long serialVersionUID = 1L;
 	
 	//alias
 	public static final String TABLE_ALIAS = "${table.tableAlias}";

@@ -14,7 +14,7 @@ import ${basepackage}.service.*;
 import ${basepackage}.vo.query.*;
 
 /**
- * @author badqiu email:badqiu(a)gmail.com
+ * @author yunlai
  * @version 1.0
  * @since 1.0
  */

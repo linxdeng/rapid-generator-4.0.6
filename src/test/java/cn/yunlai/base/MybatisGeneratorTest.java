@@ -7,7 +7,7 @@ import org.junit.Test;
 
 import cn.org.rapid_framework.generator.GeneratorProperties;
 
-public class MybatisGenerator {
+public class MybatisGeneratorTest {
 
 	@Test
 	public void generateSingleTable() throws Exception {
@@ -22,7 +22,8 @@ public class MybatisGenerator {
 	@After
 	public void openDir() throws IOException {
 		String dir = GeneratorProperties.getProperty("outRoot");
-		Runtime.getRuntime().exec("cmd.exe /c start " + dir);
+		String basepackage = GeneratorProperties.getProperty("basepackage").replace(".", "\\");
+		Runtime.getRuntime().exec("cmd.exe /c start " + dir + "\\" + basepackage);
 	}
 	
 }
