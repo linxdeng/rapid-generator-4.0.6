@@ -17,9 +17,9 @@ public class ${className} extends BaseEntity implements java.io.Serializable{
 	private static final long serialVersionUID = 5454155825314635342L;
 	
 	//alias
-	public static final String TABLE_ALIAS = "${className}";
+	public static final String TABLE_ALIAS = "${table.tableAlias}";
 	<#list table.columns as column>
-	public static final String ALIAS_${column.constantName} = "${column.columnNameLower}";
+	public static final String ALIAS_${column.constantName} = "${column.columnAlias}";
 	</#list>
 	
 	//date formats
@@ -45,9 +45,7 @@ public class ${className} extends BaseEntity implements java.io.Serializable{
 	public String toString() {
 		return new ToStringBuilder(this,ToStringStyle.MULTI_LINE_STYLE)
 		<#list table.columns as column>
-			<#if !table.compositeId>
 			.append("${column.columnName}",get${column.columnName}())
-			</#if>
 		</#list>
 			.toString();
 	}
@@ -55,9 +53,7 @@ public class ${className} extends BaseEntity implements java.io.Serializable{
 	public int hashCode() {
 		return new HashCodeBuilder()
 		<#list table.pkColumns as column>
-			<#if !table.compositeId>
 			.append(get${column.columnName}())
-			</#if>
 		</#list>
 			.toHashCode();
 	}
@@ -68,9 +64,7 @@ public class ${className} extends BaseEntity implements java.io.Serializable{
 		${className} other = (${className})obj;
 		return new EqualsBuilder()
 			<#list table.pkColumns as column>
-				<#if !table.compositeId>
 			.append(get${column.columnName}(),other.get${column.columnName}())
-				</#if>
 			</#list>
 			.isEquals();
 	}
@@ -105,11 +99,11 @@ public class ${className} extends BaseEntity implements java.io.Serializable{
 	<#assign fkPojoClassVar = fkPojoClass?uncap_first>
 	
 	private Set ${fkPojoClassVar}s = new HashSet(0);
-	public void set${fkPojoClass}s(Set ${fkPojoClassVar}){
+	public void set${fkPojoClass}s(Set<${fkPojoClass}> ${fkPojoClassVar}){
 		this.${fkPojoClassVar}s = ${fkPojoClassVar};
 	}
 	
-	public Set get${fkPojoClass}s() {
+	public Set<${fkPojoClass}> get${fkPojoClass}s() {
 		return ${fkPojoClassVar}s;
 	}
 	</#list>
@@ -133,4 +127,3 @@ public class ${className} extends BaseEntity implements java.io.Serializable{
 	}
 	</#list>
 </#macro>
-
