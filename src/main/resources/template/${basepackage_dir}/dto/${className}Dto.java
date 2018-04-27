@@ -1,7 +1,7 @@
 <#include "/macro.include"/>
 <#assign className = table.className>   
 <#assign classNameLower = className?uncap_first> 
-package ${basepackage}.model;
+package ${basepackage}.dto;
 
 <#list table.columns as column>
 <#if column.isDateTimeColumn>
@@ -11,9 +11,12 @@ package ${basepackage}.model;
 <#if hasDateType>
 import java.util.Date;
 </#if>
+import com.alibaba.fastjson.JSON;
 
-<@classComment value="模型类"/>
-public class ${className} {
+<@classComment value="DTO类"/>
+public class ${className}Dto implements java.io.Serializable{
+	private static final long serialVersionUID = 1L;
+
 	<#list table.columns as column>
 	/**
      * <#if (column.pk==true)>主键列</#if>
@@ -22,18 +25,26 @@ public class ${className} {
 	private ${column.javaType} ${column.columnNameLower};
 	</#list>
 	
-	<@generateConstructor className/>
-	<@generateJavaColumns/>
+<@generateConstructor className/>
+<@generateJavaColumns/>
 
+	public String toString() {
+		return JSON.toJSONString(this);
+	}
+	
 }
 
 <#macro generateJavaColumns>
 	<#list table.columns as column>
-	
+	/**
+     * 获取${column.columnAlias!} 
+     */
 	public void set${column.columnName}(${column.javaType} value) {
 		this.${column.columnNameLower} = value;
 	}
-	
+	/**
+     * 设置${column.columnAlias!} 
+     */
 	public ${column.javaType} get${column.columnName}() {
 		return this.${column.columnNameLower};
 	}

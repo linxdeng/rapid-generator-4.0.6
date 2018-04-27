@@ -1,13 +1,15 @@
+<#include "/macro.include"/>
 <#assign className = table.className>   
-<#assign remarks = table.remarks> 
-<#assign classNameLower = className?uncap_first>   
-package ${basepackage}.mapper;
+<#assign classNameLower = className?uncap_first> 
+<#assign remarks = table.remarks>
+package ${basepackage}.service;
 
 import java.util.List;
 
 import ${basepackage}.model.${className};
 
-public interface ${className}Mapper {
+<@classComment value="内部服务接口"/>
+public interface ${className}Service {
 	/**
 	 * 根据查询条件查询列表
      * 
@@ -46,6 +48,6 @@ public interface ${className}Mapper {
      * @param condition 更新对象
      * @return 操作影响行数
 	 */
-	int insert(${className} ${classNameLower});
-	
+	${className} insert(${className} ${classNameLower});
 }
+
