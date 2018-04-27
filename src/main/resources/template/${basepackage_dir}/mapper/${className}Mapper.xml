@@ -25,6 +25,13 @@ PUBLIC "-//ibatis.apache.org//DTD Mapper 3.0//EN"
 	    ]]>
 	</sql>
 	
+	<!-- 用于插入列表 -->
+	<sql id="insertColumns">
+		<![CDATA[
+		<#list table.columns as column><@mapperEl column.columnNameFirstLower/> <#if column_has_next>,</#if></#list>
+		]]>
+	</sql>
+	
 	<!-- 共用的查询条件 -->
 	<sql id="where">
         <where>
@@ -37,7 +44,7 @@ PUBLIC "-//ibatis.apache.org//DTD Mapper 3.0//EN"
     </sql>
 	
 	<!-- 根据查询条件查询列表 -->
-	<select id="list" resultMap="${className}Map">
+	<select id="queryList" resultMap="${className}Map">
         SELECT
             <include refid="columns" />
         FROM
@@ -85,22 +92,22 @@ PUBLIC "-//ibatis.apache.org//DTD Mapper 3.0//EN"
     </update>
     
     <!-- 插入单条数据 -->
-	<insert id="insert">
-        INSERT INTO ${table.sqlName} 
-        <trim prefix="(" suffix=")" suffixOverrides=","> 
-        <#list table.columns as column>
-        	<if test="${column.columnNameFirstLower} != null">
-        	${column.sqlName} <#if column_has_next>,</#if>
-        	</if>
-        </#list>
-        </trim>
-        <trim prefix="VALUES (" suffix=")" suffixOverrides=","> 
-        <#list table.columns as column>
-        	<if test="${column.columnNameFirstLower} != null">
-        	<@mapperEl column.columnNameFirstLower/> <#if column_has_next>,</#if>
-        	</if>
-        </#list>
-        </trim>
+	<insert id="insert" useGeneratedKeys="true" keyProperty="${table.idColumn.columnNameFirstLower}">
+        INSERT INTO ${table.sqlName} (
+        <include refid="columns" />
+        ) VALUES (
+        <include refid="insertColumns"/>
+        )
+    </insert>
+    
+    <!-- 批量插入 -->
+    <insert id="saveBatch">
+       INSERT INTO ${table.sqlName} (
+       <include refid="columns" />
+       ) VALUES
+        <foreach collection="list" item="item" index="index" separator=",">
+            (<include refid="insertColumns"/>)
+        </foreach>
     </insert>
 </mapper>
 

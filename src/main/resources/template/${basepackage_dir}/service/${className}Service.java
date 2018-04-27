@@ -8,7 +8,7 @@ import java.util.List;
 
 import ${basepackage}.model.${className};
 
-<@classComment value="内部服务接口"/>
+<@classComment value="service接口"/>
 public interface ${className}Service {
 	/**
 	 * 根据查询条件查询列表
@@ -16,7 +16,7 @@ public interface ${className}Service {
      * @param condition 查询对象
      * @return ${remarks}集合
 	 */
-	List<${className}> list(${className} condition);
+	List<${className}> queryList(${className} condition);
 	
 	/**
 	 * 根据查询条件查询单个数据

@@ -7,6 +7,7 @@ import java.util.List;
 
 import ${basepackage}.model.${className};
 
+<@classComment value="Mapper映射文件"/>
 public interface ${className}Mapper {
 	/**
 	 * 根据查询条件查询列表
@@ -14,7 +15,7 @@ public interface ${className}Mapper {
      * @param condition 查询对象
      * @return ${remarks}集合
 	 */
-	List<${className}> list(${className} condition);
+	List<${className}> queryList(${className} condition);
 	
 	/**
 	 * 根据查询条件查询单个数据

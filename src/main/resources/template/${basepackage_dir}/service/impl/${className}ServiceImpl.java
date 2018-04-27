@@ -14,19 +14,19 @@ import ${basepackage}.mapper.${className}Mapper;
 import ${basepackage}.model.${className};
 import ${basepackage}.service.${className}Service;
 
-<@classComment value="内部服务实现接口"/>
+<@classComment value="service实现接口"/>
 @Service
 public class ${className}ServiceImpl implements ${className}Service {
 	/**
-     * ${remarks} Dao
+     * ${remarks} Mapper
      */
     @Autowired
     private ${className}Mapper ${classNameLower}Mapper;
 	
 	@Override
 	@Transactional(readOnly = true)
-	public List<${className}> list(${className} condition){
-		return ${classNameLower}Mapper.list(condition);
+	public List<${className}> queryList(${className} condition){
+		return ${classNameLower}Mapper.queryList(condition);
 	}
 	
 	@Override
