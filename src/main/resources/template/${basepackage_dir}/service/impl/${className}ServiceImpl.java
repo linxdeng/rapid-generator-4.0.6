@@ -51,4 +51,12 @@ public class ${className}ServiceImpl implements ${className}Service {
 		${classNameLower}Mapper.insert(${classNameLower});
 		return ${classNameLower};
 	}
+	
+	@Override
+	public int insertBatch(List<${className}> list) {
+		if (list == null || list.isEmpty()) {
+            return 0;
+        }
+		return ${classNameLower}Mapper.insertBatch(list);
+	}
 }

@@ -7,9 +7,9 @@ PUBLIC "-//ibatis.apache.org//DTD Mapper 3.0//EN"
 "http://ibatis.apache.org/dtd/ibatis-3-mapper.dtd">
 
 <#macro mapperEl value>${r"#{"}${value}}</#macro>
+<#macro mapperEl2 value>${r"#{item."}${value}}</#macro>
 <#macro namespace>${className}.</#macro>
 
-<!-- 不使用namespace的话sql搜索定位会比较方便 -->
 <mapper namespace="${basepackage}.mapper.${className}Mapper">
 
 	<resultMap id="${className}Map" type="${basepackage}.model.${className}">
@@ -23,13 +23,6 @@ PUBLIC "-//ibatis.apache.org//DTD Mapper 3.0//EN"
 	    <![CDATA[
 		<#list table.columns as column>${column.sqlName}<#if column_has_next>,</#if></#list>
 	    ]]>
-	</sql>
-	
-	<!-- 用于插入列表 -->
-	<sql id="insertColumns">
-		<![CDATA[
-		<#list table.columns as column><@mapperEl column.columnNameFirstLower/> <#if column_has_next>,</#if></#list>
-		]]>
 	</sql>
 	
 	<!-- 共用的查询条件 -->
@@ -96,17 +89,17 @@ PUBLIC "-//ibatis.apache.org//DTD Mapper 3.0//EN"
         INSERT INTO ${table.sqlName} (
         <include refid="columns" />
         ) VALUES (
-        <include refid="insertColumns"/>
+        <#list table.columns as column><@mapperEl column.columnNameFirstLower/><#if column_has_next>,</#if></#list>
         )
     </insert>
     
     <!-- 批量插入 -->
-    <insert id="saveBatch">
+    <insert id="insertBatch">
        INSERT INTO ${table.sqlName} (
        <include refid="columns" />
        ) VALUES
         <foreach collection="list" item="item" index="index" separator=",">
-            (<include refid="insertColumns"/>)
+            (<#list table.columns as column><@mapperEl2 column.columnNameFirstLower/><#if column_has_next>,</#if></#list>)
         </foreach>
     </insert>
 </mapper>
