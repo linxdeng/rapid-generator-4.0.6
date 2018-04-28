@@ -24,8 +24,7 @@ public class ${className}Dto implements java.io.Serializable{
      */
 	private ${column.javaType} ${column.columnNameLower};
 	</#list>
-	
-<@generateConstructor className/>
+
 <@generateJavaColumns/>
 
 	public String toString() {
