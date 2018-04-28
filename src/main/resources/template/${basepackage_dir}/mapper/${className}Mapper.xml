@@ -52,7 +52,6 @@ PUBLIC "-//ibatis.apache.org//DTD Mapper 3.0//EN"
         FROM
             ${table.sqlName} 
         <include refid="where"/>
-        limit 1
     </select>
     
     <!-- 根据主键查询 -->
@@ -87,7 +86,7 @@ PUBLIC "-//ibatis.apache.org//DTD Mapper 3.0//EN"
     <!-- 插入单条数据 -->
 	<insert id="insert" useGeneratedKeys="true" keyProperty="${table.idColumn.columnNameFirstLower}">
         INSERT INTO ${table.sqlName} (
-        <include refid="columns" />
+          <#list table.columns as column>${column.sqlName}<#if column_has_next>,</#if></#list>
         ) VALUES (
         <#list table.columns as column><@mapperEl column.columnNameFirstLower/><#if column_has_next>,</#if></#list>
         )
@@ -96,11 +95,12 @@ PUBLIC "-//ibatis.apache.org//DTD Mapper 3.0//EN"
     <!-- 批量插入 -->
     <insert id="insertBatch">
        INSERT INTO ${table.sqlName} (
-       <include refid="columns" />
+         <#list table.columns as column>${column.sqlName}<#if column_has_next>,</#if></#list>
        ) VALUES
         <foreach collection="list" item="item" index="index" separator=",">
             (<#list table.columns as column><@mapperEl2 column.columnNameFirstLower/><#if column_has_next>,</#if></#list>)
         </foreach>
     </insert>
+    
 </mapper>
 
